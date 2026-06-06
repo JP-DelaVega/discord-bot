@@ -2,6 +2,17 @@ require("dotenv").config();
 const { Client, GatewayIntentBits, Events, REST, Routes, SlashCommandBuilder } = require("discord.js");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
+// Add at the TOP of index.js
+const http = require("http");
+
+// Keep-alive server so Render doesn't sleep
+http.createServer((req, res) => {
+  res.writeHead(200);
+  res.end("Bot is alive!");
+}).listen(process.env.PORT || 3000, () => {
+  console.log("✅ Keep-alive server running");
+});
+
 const discord = new Client({
   intents: [
     GatewayIntentBits.Guilds,
